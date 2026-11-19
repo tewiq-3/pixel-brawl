@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#101326">
+  <title>PIXEL BRAWL</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">✦</span><div><b>PIXEL BRAWL</b><small>ОДИНОЧНОЕ ПРИКЛЮЧЕНИЕ</small></div></div>
+      <div class="currency">★ <span id="stars">0</span></div>
+    </header>
+
+    <main>
+      <section id="home" class="screen active">
+        <div class="eyebrow">ТВОЁ ПРИКЛЮЧЕНИЕ НАЧИНАЕТСЯ</div>
+        <div class="hero-panel">
+          <div class="hero-art" aria-label="Пиксельный робот Байт">🤖</div>
+          <div class="hero-info">
+            <span class="tag">ТВОЙ БОЕЦ</span>
+            <h1>БАЙТ</h1>
+            <p>Универсальный робот, готовый к любым испытаниям.</p>
+            <div class="stats"><span>❤ 100 HP</span><span>⚡ Обычная скорость</span></div>
+          </div>
+        </div>
+        <div class="section-heading"><h2>ОДИНОЧНАЯ КАМПАНИЯ</h2><span class="pill">PVE</span></div>
+        <div class="mission-card">
+          <div class="mission-icon">⚔️</div>
+          <div class="mission-copy"><b>ПЕРВОЕ ИСПЫТАНИЕ</b><small>Сразись с компьютерными противниками</small><small class="muted">Награда: 25 монет</small></div>
+          <button class="primary" id="playBtn">ИГРАТЬ</button>
+        </div>
+        <p class="note">Сражения проходят в одиночном режиме. Другие игроки не участвуют.</p>
+      </section>
+
+      <section id="battle" class="screen">
+        <button class="back" data-go="home">← НАЗАД</button>
+        <div class="section-heading"><h2>ТРЕНИРОВОЧНЫЙ БОЙ</h2><span class="pill">PVE</span></div>
+        <div class="arena">
+          <div class="arena-label">АРЕНА 01 · ТРЕНИРОВКА</div>
+          <div class="fighters"><div><span class="fighter">🤖</span><small>БАЙТ</small></div><div class="vs">VS</div><div><span class="fighter enemy">👾</span><small>БОТ-ПРОТИВНИК</small></div></div>
+          <div class="health"><span>БАЙТ</span><div class="bar"><i id="playerHp"></i></div><b id="hpText">100/100</b></div>
+          <div class="health"><span>БОТ</span><div class="bar enemybar"><i id="enemyHp"></i></div><b id="enemyHpText">60/60</b></div>
+          <p id="battleMessage" class="battle-message">Нажми «Атаковать», чтобы начать тренировочный бой.</p>
+        </div>
+        <div class="battle-actions"><button id="attackBtn" class="primary">⚡ АТАКОВАТЬ</button><button id="resetBtn" class="secondary">ЗАНОВО</button></div>
+      </section>
+
+      <section id="shop" class="screen">
+        <div class="eyebrow">ПЕРСОНАЛИЗИРУЙ СВОЕГО БОЙЦА</div>
+        <div class="section-heading"><h2>МАГАЗИН СКИНОВ</h2><span class="pill">БАЙТ</span></div>
+        <div class="skin-grid">
+          <article class="skin-card"><div class="skin-art">🤖</div><b>КЛАССИЧЕСКИЙ</b><small>Стандартный образ</small><span class="owned">УЖЕ ЕСТЬ</span></article>
+          <article class="skin-card"><div class="skin-art neon">🦾</div><b>НЕОНОВЫЙ</b><small>Яркий стиль</small><button class="buy" data-skin="Неоновый" data-price="50">★ 50</button></article>
+          <article class="skin-card"><div class="skin-art gold">🤖</div><b>ЗОЛОТОЙ</b><small>Особый внешний вид</small><button class="buy" data-skin="Золотой" data-price="100">★ 100</button></article>
+        </div>
+        <p class="note">Покупки пока демонстрационные. Для настоящей оплаты Telegram Stars нужно подключить сервер и платежи Telegram.</p>
+      </section>
+
+      <section id="profile" class="screen">
+        <div class="eyebrow">ТВОЯ ИГРОВАЯ КАРТОЧКА</div>
+        <div class="profile-card"><div class="profile-avatar">🤖</div><h2 id="playerName">ИГРОК</h2><span class="pill">НОВИЧОК</span>
+          <div class="profile-stats"><div><b id="wins">0</b><small>ПОБЕДЫ</small></div><div><b id="coins">0</b><small>МОНЕТЫ</small></div><div><b id="skinCount">1</b><small>ОБРАЗЫ</small></div></div>
+        </div>
+        <div class="section-heading"><h2>ТВОЙ ПРОГРЕСС</h2></div>
+        <div class="progress-card"><span>Кампания</span><b id="progressText">0 / 1 испытаний</b><div class="progress"><i id="progressBar"></i></div></div>
+      </section>
+    </main>
+
+    <nav class="tabs">
+      <button class="tab active" data-go="home"><span>⌂</span>ГЛАВНАЯ</button>
+      <button class="tab" data-go="shop"><span>✦</span>МАГАЗИН</button>
+      <button class="tab" data-go="profile"><span>▣</span>ПРОФИЛЬ</button>
+    </nav>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
