@@ -2064,6 +2064,11 @@ introStartBtn.style.pointerEvents = 'auto';
 introSkipBtn.style.pointerEvents = 'auto';
 
 console.log('Кнопки Байта подключены');
+
+document.addEventListener('click', (e) => {
+  alert('Клик пойман! Элемент: ' + e.target.tagName + ', ID: ' + (e.target.id || 'нет'));
+}, true);
+
 })();
 
   
