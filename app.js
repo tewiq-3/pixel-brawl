@@ -2002,13 +2002,7 @@
   };
 
   tutorialSkipBtn.onclick = finishTutorial;
-introStartBtn.addEventListener('click', () => {
-  alert('Кнопка знакомства нажата!');
-}, true);
 
-introSkipBtn.addEventListener('click', () => {
-  alert('Кнопка пропуска нажата!');
-}, true);
   introStartBtn.onclick = () => {
     closeIntro();
     startGame();
@@ -2064,10 +2058,6 @@ introStartBtn.style.pointerEvents = 'auto';
 introSkipBtn.style.pointerEvents = 'auto';
 
 console.log('Кнопки Байта подключены');
-
-document.addEventListener('click', (e) => {
-  alert('Клик пойман! Элемент: ' + e.target.tagName + ', ID: ' + (e.target.id || 'нет'));
-}, true);
 
 })();
 
