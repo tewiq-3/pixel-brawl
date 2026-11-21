@@ -2002,7 +2002,13 @@
   };
 
   tutorialSkipBtn.onclick = finishTutorial;
+introStartBtn.addEventListener('click', () => {
+  alert('Кнопка знакомства нажата!');
+}, true);
 
+introSkipBtn.addEventListener('click', () => {
+  alert('Кнопка пропуска нажата!');
+}, true);
   introStartBtn.onclick = () => {
     closeIntro();
     startGame();
