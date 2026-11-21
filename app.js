@@ -2005,9 +2005,11 @@
 
   introStartBtn.onclick = () => {
 
-  introOverlay.classList.add('hidden');
+  closeIntro();
 
-  alert('Окно знакомства закрыто!');
+  startGame();
+
+  showTutorial();
 
 };
 
