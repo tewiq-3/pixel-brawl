@@ -218,5 +218,121 @@
     ctx.fillStyle=pal.mid;ctx.fillRect(-9,-8,18,12);ctx.fillStyle='#ffe7a0';ctx.fillRect(-6,-6,4,5);ctx.fillRect(3,-6,4,5);ctx.fillStyle=pal.glow;ctx.fillRect(-5,-5,2,3);ctx.fillRect(4,-5,2,3);ctx.fillStyle='#15283a';ctx.fillRect(-3,2,7,2);ctx.restore();
   }
   // stop accidental page zoom while using the game controls
+  
+  // === ЗНАКОМСТВО С БАЙТОМ ===
+  const introOverlay = $('introOverlay');
+  const introStartBtn = $('introStartBtn');
+  const introSkipBtn = $('introSkipBtn');
+  const tutorialOverlay = $('tutorialOverlay');
+  const tutorialNextBtn = $('tutorialNextBtn');
+  const tutorialSkipBtn = $('tutorialSkipBtn');
+
+  const tutorialSteps = [
+    {
+      title: 'Движение',
+      text: 'Управляй Байтом с помощью джойстика. Передвигайся по арене и обходи препятствия!'
+    },
+    {
+      title: 'Атака',
+      text: 'Нажимай кнопку атаки, чтобы стрелять по ближайшим противникам. Байт сам выберет цель.'
+    },
+    {
+      title: 'Суператака',
+      text: 'Попадания по врагам заряжают суперспособность. Когда шкала заполнится, нажми кнопку суперсилы!'
+    },
+    {
+      title: 'Ты готов!',
+      text: 'Вот и всё! Теперь ты знаешь основы. Удачи на арене!'
+    }
+  ];
+
+  let tutorialStep = 0;
+
+  function closeIntro() {
+    if (introOverlay) introOverlay.classList.add('hidden');
+    localStorage.setItem('pb_intro_seen', '1');
+  }
+
+  function showTutorial() {
+    tutorialStep = 0;
+    showScreen('game');
+    if (tutorialOverlay) tutorialOverlay.classList.remove('hidden');
+    updateTutorial();
+  }
+
+  function updateTutorial() {
+    const step = tutorialSteps[tutorialStep];
+    if (!step) return;
+
+    if ($('tutorialStepLabel')) {
+      $('tutorialStepLabel').textContent =
+        `Знакомство ${tutorialStep + 1}/${tutorialSteps.length}`;
+    }
+
+    if ($('tutorialTitle')) {
+      $('tutorialTitle').textContent = step.title;
+    }
+
+    if ($('tutorialText')) {
+      $('tutorialText').textContent = step.text;
+    }
+
+    if (tutorialNextBtn) {
+      tutorialNextBtn.textContent =
+        tutorialStep === tutorialSteps.length - 1 ? 'Завершить' : 'Далее';
+    }
+  }
+
+  function finishTutorial() {
+    if (tutorialOverlay) tutorialOverlay.classList.add('hidden');
+  }
+
+  if (tutorialNextBtn) {
+    tutorialNextBtn.onclick = () => {
+      tutorialStep++;
+
+      if (tutorialStep >= tutorialSteps.length) {
+        finishTutorial();
+      } else {
+        updateTutorial();
+      }
+    };
+  }
+
+  if (tutorialSkipBtn) {
+    tutorialSkipBtn.onclick = finishTutorial;
+  }
+
+  if (introStartBtn) {
+    introStartBtn.onclick = () => {
+      closeIntro();
+      startGame();
+      showTutorial();
+    };
+  }
+
+  if (introSkipBtn) {
+    introSkipBtn.onclick = () => {
+      closeIntro();
+    };
+  }
+
+  // При первом запуске Байт приветствует игрока.
+  if (introOverlay && !localStorage.getItem('pb_intro_seen')) {
+    introOverlay.classList.remove('hidden');
+  }
+
+  // При повторных запусках сразу открывается обычная игра.
+  $('playBtn').onclick = () => {
+    if (localStorage.getItem('pb_intro_seen')) {
+      startGame();
+    } else if (introOverlay) {
+      introOverlay.classList.remove('hidden');
+    } else {
+      startGame();
+    }
+  };
+
+  // stop accidental page zoom while using the game controls
   document.addEventListener('gesturestart',e=>e.preventDefault());
 })();
