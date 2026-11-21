@@ -10,3 +10,104 @@
 .super-btn{transition:filter .15s,transform .15s,box-shadow .15s;opacity:.62}.super-btn.ready{opacity:1;background:linear-gradient(#ffe36b,#f39a24);border-color:#fff3a8;box-shadow:0 0 0 4px #ffd34e44,0 0 22px #ffd34eaa,0 5px 0 #0004;filter:brightness(1.08);animation:superPulse 1s ease-in-out infinite alternate}@keyframes superPulse{from{transform:scale(1)}to{transform:scale(1.07)}}
 
 .super-control{display:flex;flex-direction:column;align-items:center;gap:4px;width:68px}.super-meter{height:8px;width:62px;border:1px solid #ffffff88;border-radius:8px;background:#101b2b;overflow:hidden;box-shadow:0 2px 4px #0005}.super-fill{height:100%;width:0%;background:linear-gradient(90deg,#9b70ff,#ffe36b);border-radius:8px;transition:width .15s}.super-percent{font-size:10px;color:#f5eaff;font-weight:900;line-height:1}.super-control:has(.super-btn.ready) .super-fill{background:linear-gradient(90deg,#ffe36b,#ffae28);box-shadow:0 0 8px #ffe36b}
+
+/* === ЗНАКОМСТВО С БАЙТОМ === */
+
+.intro-overlay,
+#tutorialOverlay {
+  z-index: 20;
+  background: rgba(5, 12, 27, 0.88);
+  backdrop-filter: blur(7px);
+  padding: 20px;
+}
+
+.intro-overlay .overlay-card,
+#tutorialOverlay .overlay-card {
+  width: min(100%, 370px);
+  padding: 25px 22px;
+  border: 2px solid #54c8ff;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #294766, #17263e 75%);
+  box-shadow:
+    0 0 0 5px #54c8ff18,
+    0 18px 45px #0009;
+  animation: byteIntroAppear 0.35s ease-out;
+}
+
+.intro-overlay .overlay-card h2,
+#tutorialOverlay .overlay-card h2 {
+  color: var(--yellow);
+  font-size: 27px;
+  margin: 5px 0 14px;
+  text-shadow: 0 3px 0 #8c5a20;
+}
+
+.intro-overlay .overlay-card p,
+#tutorialOverlay .overlay-card p {
+  color: #dceaff;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 10px 0 17px;
+}
+
+#tutorialStepLabel {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 9px;
+  border-radius: 20px;
+  background: #54c8ff22;
+  border: 1px solid #54c8ff77;
+  color: #8cddff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+#tutorialNextBtn {
+  background: linear-gradient(180deg, #ffe16b, #ffb92e);
+  color: #33240a;
+  box-shadow: 0 4px 0 #b97718;
+}
+
+#tutorialSkipBtn,
+#introSkipBtn {
+  background: #314763;
+  color: #c7d6e9;
+  border: 1px solid #526b89;
+}
+
+#tutorialNextBtn:active,
+#tutorialSkipBtn:active,
+#introStartBtn:active {
+  transform: translateY(2px);
+}
+
+@keyframes byteIntroAppear {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 420px) {
+  .intro-overlay .overlay-card,
+  #tutorialOverlay .overlay-card {
+    padding: 21px 17px;
+  }
+
+  .intro-overlay .overlay-card h2,
+  #tutorialOverlay .overlay-card h2 {
+    font-size: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay .overlay-card,
+  #tutorialOverlay .overlay-card {
+    animation: none;
+  }
+}
