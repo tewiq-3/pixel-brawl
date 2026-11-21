@@ -2004,10 +2004,12 @@
   tutorialSkipBtn.onclick = finishTutorial;
 
   introStartBtn.onclick = () => {
-    closeIntro();
-    startGame();
-    showTutorial();
-  };
+
+  introOverlay.classList.add('hidden');
+
+  alert('Окно знакомства закрыто!');
+
+};
 
   introSkipBtn.onclick = closeIntro;
 
