@@ -1892,194 +1892,164 @@
 
   }
 
-  // ==========================================
 
+  // ==========================================
   // ЗНАКОМСТВО С БАЙТОМ И ОБУЧЕНИЕ
-
   // ==========================================
 
-  const introOverlay = $('introOverlay');
+  function createGuideOverlay(id, content) {
+    const overlay = document.createElement('div');
+    overlay.id = id;
+    overlay.className = 'byte-guide-overlay hidden';
+    overlay.innerHTML = `
+      <div class="byte-guide-card">
+        ${content}
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  const introOverlay = createGuideOverlay('introOverlay', `
+    <div class="byte-guide-robot">🤖</div>
+    <h2>Привет! Я Байт!</h2>
+    <p>Добро пожаловать на арену PIXEL BRAWL! Я помогу тебе освоиться, расскажу об управлении и покажу, как побеждать противников.</p>
+    <p>Готов начать знакомство?</p>
+    <button id="introStartBtn" class="byte-guide-primary">Давай знакомиться!</button>
+    <button id="introSkipBtn" class="byte-guide-secondary">Пропустить</button>
+  `);
+
+  const tutorialOverlay = createGuideOverlay('tutorialOverlay', `
+    <div class="byte-guide-robot">🤖</div>
+    <div id="tutorialStepLabel" class="byte-guide-step"></div>
+    <h2 id="tutorialTitle"></h2>
+    <p id="tutorialText"></p>
+    <button id="tutorialNextBtn" class="byte-guide-primary">Далее</button>
+    <button id="tutorialSkipBtn" class="byte-guide-secondary">Пропустить обучение</button>
+  `);
 
   const introStartBtn = $('introStartBtn');
-
   const introSkipBtn = $('introSkipBtn');
-
-  const tutorialOverlay = $('tutorialOverlay');
-
   const tutorialNextBtn = $('tutorialNextBtn');
-
   const tutorialSkipBtn = $('tutorialSkipBtn');
 
-  const replayTutorialBtn = $('replayTutorialBtn');
-
   const tutorialSteps = [
-
     {
-
       title: 'Движение',
-
       text: 'Управляй Байтом с помощью джойстика слева. Передвигайся по арене, обходи препятствия и держись подальше от противников.'
-
     },
-
     {
-
       title: 'Атака',
-
       text: 'Нажимай и удерживай кнопку «АТАКА» справа. Байт автоматически выбирает ближайшего противника и стреляет по нему.'
-
     },
-
     {
-
       title: 'Суператака',
-
       text: 'Попадания по врагам заряжают суперспособность. Когда шкала заполнится до 100%, нажми кнопку ⚡ «СУПЕР»!'
-
     },
-
     {
-
       title: 'Волны и боссы',
-
       text: 'Побеждай всех роботов, чтобы перейти к следующей волне. Иногда на арену приходит босс — у него гораздо больше здоровья!'
-
     },
-
     {
-
       title: 'Ты готов!',
-
       text: 'Вот и всё! Теперь ты знаешь основы PIXEL BRAWL. Удачи на арене! Если забудешь управление, я всегда подскажу.'
-
     }
-
   ];
 
   let tutorialStep = 0;
 
   function closeIntro() {
-
-    if (introOverlay) {
-
-      introOverlay.classList.add('hidden');
-
-    }
-
+    introOverlay.classList.add('hidden');
     localStorage.setItem('pb_intro_seen', '1');
-
   }
 
   function updateTutorial() {
-
     const step = tutorialSteps[tutorialStep];
-
     if (!step) return;
 
     $('tutorialStepLabel').textContent =
-
       `ЗНАКОМСТВО ${tutorialStep + 1}/${tutorialSteps.length}`;
 
     $('tutorialTitle').textContent = step.title;
-
     $('tutorialText').textContent = step.text;
 
     tutorialNextBtn.textContent =
-
-      tutorialStep === tutorialSteps.length - 1 ? 'Завершить' : 'Далее';
-
+      tutorialStep === tutorialSteps.length - 1
+        ? 'Завершить'
+        : 'Далее';
   }
 
   function showTutorial() {
-
     tutorialStep = 0;
-
     showScreen('game');
-
     tutorialOverlay.classList.remove('hidden');
-
     updateTutorial();
-
   }
 
   function finishTutorial() {
-
     tutorialOverlay.classList.add('hidden');
-
     localStorage.setItem('pb_tutorial_seen', '1');
-
   }
 
   tutorialNextBtn.onclick = () => {
-
     tutorialStep++;
 
     if (tutorialStep >= tutorialSteps.length) {
-
       finishTutorial();
-
     } else {
-
       updateTutorial();
-
     }
-
   };
 
   tutorialSkipBtn.onclick = finishTutorial;
 
   introStartBtn.onclick = () => {
-
     closeIntro();
-
     startGame();
-
     showTutorial();
-
   };
 
-  introSkipBtn.onclick = () => {
+  introSkipBtn.onclick = closeIntro;
 
-    closeIntro();
-
-  };
-
-  // Первое приветствие при первом открытии игры.
-
+  // Приветствие при первом открытии игры.
   if (!localStorage.getItem('pb_intro_seen')) {
-
     introOverlay.classList.remove('hidden');
-
   }
 
-  // Кнопка игры.
-
+  // Кнопка запуска игры.
   $('playBtn').onclick = () => {
-
     if (!localStorage.getItem('pb_intro_seen')) {
-
       introOverlay.classList.remove('hidden');
-
       return;
-
     }
 
     startGame();
-
   };
 
-  // Повторное обучение из профиля.
+  // Добавляем кнопку повторного обучения в профиль.
+  const replayTutorialBtn = document.createElement('button');
+
+  replayTutorialBtn.id = 'replayTutorialBtn';
+  replayTutorialBtn.className = 'guide-button';
+  replayTutorialBtn.textContent = '🤖 Как играть?';
+
+  const profileScreen = $('profile');
+  const profileNote = profileScreen.querySelector('.small-note');
+
+  if (profileNote) {
+    profileNote.before(replayTutorialBtn);
+  } else {
+    profileScreen.appendChild(replayTutorialBtn);
+  }
 
   replayTutorialBtn.onclick = () => {
-
     startGame();
-
     showTutorial();
-
   };
 
   // Отключаем случайное масштабирование страницы жестами.
-
   document.addEventListener('gesturestart', e => e.preventDefault());
 
-})()
+})();
+
+  
