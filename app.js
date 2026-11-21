@@ -2049,7 +2049,15 @@
 
   // Отключаем случайное масштабирование страницы жестами.
   document.addEventListener('gesturestart', e => e.preventDefault());
+introOverlay.style.pointerEvents = 'auto';
 
+tutorialOverlay.style.pointerEvents = 'auto';
+
+introStartBtn.style.pointerEvents = 'auto';
+
+introSkipBtn.style.pointerEvents = 'auto';
+
+console.log('Кнопки Байта подключены');
 })();
 
   
