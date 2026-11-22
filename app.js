@@ -1928,6 +1928,8 @@
 
   class="byte-guide-robot"
 
+  style="width:90px;height:90px;object-fit:contain;display:block;margin:0 auto 14px;"
+
 >
     <div id="tutorialStepLabel" class="byte-guide-step"></div>
     <h2 id="tutorialTitle"></h2>
