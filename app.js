@@ -1920,7 +1920,15 @@
   `);
 
   const tutorialOverlay = createGuideOverlay('tutorialOverlay', `
-    <div class="byte-guide-robot">🤖</div>
+    <img
+
+  src="IMG_2897.jpeg"
+
+  alt="Байт"
+
+  class="byte-guide-robot"
+
+>
     <div id="tutorialStepLabel" class="byte-guide-step"></div>
     <h2 id="tutorialTitle"></h2>
     <p id="tutorialText"></p>
