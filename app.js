@@ -3,6 +3,8 @@
   const $ = id => document.getElementById(id);
 
   const tg = window.Telegram?.WebApp;
+  
+  alert('Проверка: app.js запустился!');
 
 if (tg) {
 
