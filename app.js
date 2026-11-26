@@ -4,13 +4,19 @@
 
   const tg = window.Telegram?.WebApp;
 
-  if (tg) {
+if (tg) {
 
-    tg.ready();
+  tg.ready();
 
-    tg.expand();
+  tg.expand();
+
+  if (typeof tg.disableVerticalSwipes === 'function') {
+
+    tg.disableVerticalSwipes();
 
   }
+
+}
 
   let activeSkin = localStorage.getItem('pb_skin') || 'classic';
 
