@@ -10,11 +10,27 @@ if (tg) {
 
   tg.expand();
 
-  if (typeof tg.disableVerticalSwipes === 'function') {
+  const supported = typeof tg.disableVerticalSwipes === 'function';
+
+  if (supported) {
 
     tg.disableVerticalSwipes();
 
   }
+
+  alert(
+
+    'Версия Telegram API: ' + tg.version +
+
+    '\nМетод отключения: ' + (supported ? 'найден' : 'не найден') +
+
+    '\nВертикальные свайпы: ' +
+
+    (tg.isVerticalSwipesEnabled === false ? 'выключены' :
+
+    tg.isVerticalSwipesEnabled === true ? 'включены' : 'неизвестно')
+
+  );
 
 }
 
