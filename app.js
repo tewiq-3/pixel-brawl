@@ -930,13 +930,15 @@ if (tg) {
 
   joyEl.addEventListener('pointerdown', e => {
 
-    joyPointer = e.pointerId;
+  e.preventDefault();
 
-    joyEl.setPointerCapture(joyPointer);
+  joyPointer = e.pointerId;
 
-    setJoy(e);
+  joyEl.setPointerCapture(joyPointer);
 
-  });
+  setJoy(e);
+
+});
 
   joyEl.addEventListener('pointermove', e => {
 
